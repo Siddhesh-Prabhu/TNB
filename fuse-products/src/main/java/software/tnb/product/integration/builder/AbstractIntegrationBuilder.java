@@ -71,7 +71,7 @@ public abstract class AbstractIntegrationBuilder<SELF extends AbstractIntegratio
     private String integrationName;
     private String fileName = "MyRouteBuilder.java";
 
-    private int port = 9090;
+    private int port = 65535;
 
     private String jvmAgentPath;
 
