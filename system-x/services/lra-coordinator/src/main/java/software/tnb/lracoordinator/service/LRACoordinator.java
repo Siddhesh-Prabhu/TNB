@@ -23,7 +23,9 @@ public abstract class LRACoordinator extends Service<NoAccount, NoClient, NoVali
     public abstract int port();
 
     public String defaultImage() {
-        return "quay.io/jbosstm/lra-coordinator:latest";
+        // Repalced with ppc specific image
+        // return "quay.io/jbosstm/lra-coordinator:latest";
+        return "quay.io/fuse_qe/lra-coordinator-quarkus:latest-ppc64le";
     }
 
     public void openResources() {
