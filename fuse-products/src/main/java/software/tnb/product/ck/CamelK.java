@@ -29,6 +29,7 @@ import org.apache.camel.v1.Kamelet;
 import org.apache.camel.v1.Pipe;
 import org.apache.camel.v1.integrationplatformspec.Build;
 import org.apache.camel.v1.integrationplatformspec.build.maven.Settings;
+import org.apache.camel.v1.integrationplatformspec.build.maven.CASecrets;
 import org.apache.camel.v1.integrationplatformspec.build.maven.settings.ConfigMapKeyRef;
 import org.apache.camel.v1alpha1.KameletBinding;
 import org.apache.logging.log4j.LogManager;
@@ -133,9 +134,9 @@ public class CamelK extends OpenshiftProduct implements KameletOps, BeforeEachCa
         }
 
         org.apache.camel.v1.integrationplatformspec.build.Maven maven = new org.apache.camel.v1.integrationplatformspec.build.Maven();
-        CASecrets caSecrets = new CASecrets();
-        caSecrets.setkey("2022-IT-Root-CA.pem");
-        caSecrets.setName("maven-ca-certs");
+        CASecrets casecrets = new CASecrets();
+        casecrets.setkey("2022-IT-Root-CA.pem");
+        casecrets.setName("maven-ca-certs");
         Settings settings = new Settings();
         ConfigMapKeyRef cm = new ConfigMapKeyRef();
         cm.setKey("settings.xml");
