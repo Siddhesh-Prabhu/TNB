@@ -133,6 +133,9 @@ public class CamelK extends OpenshiftProduct implements KameletOps, BeforeEachCa
         }
 
         org.apache.camel.v1.integrationplatformspec.build.Maven maven = new org.apache.camel.v1.integrationplatformspec.build.Maven();
+        CaSecrets caSecrets = new CaSecrets();
+        caSecrets.setkey("2022-IT-Root-CA.pem");
+        caSecrets.setName("maven-ca-certs");
         Settings settings = new Settings();
         ConfigMapKeyRef cm = new ConfigMapKeyRef();
         cm.setKey("settings.xml");
