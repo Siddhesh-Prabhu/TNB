@@ -29,7 +29,6 @@ import org.apache.camel.v1.Kamelet;
 import org.apache.camel.v1.Pipe;
 import org.apache.camel.v1.integrationplatformspec.Build;
 import org.apache.camel.v1.integrationplatformspec.build.maven.Settings;
-// import org.apache.camel.v1.integrationplatformspec.build.maven.CASecrets;
 import org.apache.camel.v1.integrationplatformspec.build.maven.settings.ConfigMapKeyRef;
 import org.apache.camel.v1alpha1.KameletBinding;
 import org.apache.logging.log4j.LogManager;
@@ -159,9 +158,11 @@ public class CamelK extends OpenshiftProduct implements KameletOps, BeforeEachCa
                 Map.of("settings.xml", IOUtils.readFile(Paths.get(TestConfiguration.mavenSettings()))));
         }
 
-        // OpenshiftClient.get().resources(IntegrationPlatform.class).delete();
-        // OpenshiftClient.get().resources(IntegrationPlatform.class).resource(ip).create();
-
+        if (TestConfiguration.integrationPlatformName() == null) {   
+            OpenshiftClient.get().resources(IntegrationPlatform.class).delete();
+            OpenshiftClient.get().resources(IntegrationPlatform.class).resource(ip).create();
+        }
+        
         if (TestConfiguration.streamLogs()) {
             setupLogger();
         }
