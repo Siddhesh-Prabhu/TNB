@@ -29,7 +29,7 @@ import org.apache.camel.v1.Kamelet;
 import org.apache.camel.v1.Pipe;
 import org.apache.camel.v1.integrationplatformspec.Build;
 import org.apache.camel.v1.integrationplatformspec.build.maven.Settings;
-import org.apache.camel.v1.integrationplatformspec.build.maven.CASecrets;
+// import org.apache.camel.v1.integrationplatformspec.build.maven.CASecrets;
 import org.apache.camel.v1.integrationplatformspec.build.maven.settings.ConfigMapKeyRef;
 import org.apache.camel.v1alpha1.KameletBinding;
 import org.apache.logging.log4j.LogManager;
@@ -104,16 +104,16 @@ public class CamelK extends OpenshiftProduct implements KameletOps, BeforeEachCa
                 }
                 if (OpenshiftClient.get().operatorHub().catalogSources().inNamespace(config.subscriptionSourceNamespace())
                     .withName(config.subscriptionSource()).get() == null) {
-                    LOG.error("Operator Hub catalog source {} not found! Set {} property to an existing catalog source or create a new catalog source"
-                            + " with {} name in {} namespace. Be careful, as if someone else uses the same cluster with a different version,"
-                            + " the deployments may fail due changes in CRDs between versions", config.subscriptionSource(),
-                        CamelKConfiguration.SUBSCRIPTION_SOURCE, config.subscriptionSource(), config.subscriptionSourceNamespace());
-                    throw new RuntimeException("Operator Hub catalog source " + config.subscriptionSource() + " not found!");
+                    // LOG.error("Operator Hub catalog source {} not found! Set {} property to an existing catalog source or create a new catalog source"
+                    //         + " with {} name in {} namespace. Be careful, as if someone else uses the same cluster with a different version,"
+                    //         + " the deployments may fail due changes in CRDs between versions", config.subscriptionSource(),
+                    //     CamelKConfiguration.SUBSCRIPTION_SOURCE, config.subscriptionSource(), config.subscriptionSourceNamespace());
+                    // throw new RuntimeException("Operator Hub catalog source " + config.subscriptionSource() + " not found!");
                 }
 
-                OpenshiftClient.get().createSubscription(config.subscriptionChannel(), config.subscriptionOperatorName(), config.subscriptionSource(),
-                    config.subscriptionName(), config.subscriptionSourceNamespace(), OpenshiftClient.get().getNamespace(), false);
-                OpenshiftClient.get().waitForInstallPlanToComplete(config.subscriptionName());
+                // OpenshiftClient.get().createSubscription(config.subscriptionChannel(), config.subscriptionOperatorName(), config.subscriptionSource(),
+                //     config.subscriptionName(), config.subscriptionSourceNamespace(), OpenshiftClient.get().getNamespace(), false);
+                // OpenshiftClient.get().waitForInstallPlanToComplete(config.subscriptionName());
             } else {
                 LOG.info("Reusing global Camel-K installation.");
             }
@@ -134,25 +134,26 @@ public class CamelK extends OpenshiftProduct implements KameletOps, BeforeEachCa
         }
 
         org.apache.camel.v1.integrationplatformspec.build.Maven maven = new org.apache.camel.v1.integrationplatformspec.build.Maven();
-        CASecrets casecrets = new CASecrets();
-        casecrets.setkey("2022-IT-Root-CA.pem");
-        casecrets.setName("maven-ca-certs");
-        Settings settings = new Settings();
-        ConfigMapKeyRef cm = new ConfigMapKeyRef();
-        cm.setKey("settings.xml");
-        cm.setName(config.mavenSettingsConfigMapName());
-        cm.setOptional(false);
-        settings.setConfigMapKeyRef(cm);
-        maven.setSettings(settings);
+        // CASecrets casecrets = new CASecrets();
+        // casecrets.setkey("2022-IT-Root-CA.pem");
+        // casecrets.setName("maven-ca-certs");
+        // maven.setCASecrets(casecrets);
+	    // Settings settings = new Settings();
+        // ConfigMapKeyRef cm = new ConfigMapKeyRef();
+        // cm.setKey("settings.xml");
+        // cm.setName(config.mavenSettingsConfigMapName());
+        // cm.setOptional(false);
+        // settings.setConfigMapKeyRef(cm);
+        // maven.setSettings(settings);
 
-        build.setMaven(maven);
+        // build.setMaven(maven);
 
         IntegrationPlatform ip = new IntegrationPlatform();
-        ip.setMetadata(metadata);
-        ip.setSpec(spec);
+        // ip.setMetadata(metadata);
+        // ip.setSpec(spec);
 
         if (TestConfiguration.mavenSettings() == null) {
-            OpenshiftClient.get().createConfigMap(config.mavenSettingsConfigMapName(), Map.of("settings.xml", Maven.createSettingsXmlFile()));
+            // OpenshiftClient.get().createConfigMap(config.mavenSettingsConfigMapName(), Map.of("settings.xml", Maven.createSettingsXmlFile()));
         } else {
             OpenshiftClient.get().createConfigMap(config.mavenSettingsConfigMapName(),
                 Map.of("settings.xml", IOUtils.readFile(Paths.get(TestConfiguration.mavenSettings()))));
