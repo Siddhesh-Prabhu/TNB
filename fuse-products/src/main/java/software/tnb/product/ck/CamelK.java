@@ -158,10 +158,10 @@ public class CamelK extends OpenshiftProduct implements KameletOps, BeforeEachCa
                 Map.of("settings.xml", IOUtils.readFile(Paths.get(TestConfiguration.mavenSettings()))));
         }
 
-        if (TestConfiguration.integrationPlatformName() == null) {   
-            OpenshiftClient.get().resources(IntegrationPlatform.class).delete();
-            OpenshiftClient.get().resources(IntegrationPlatform.class).resource(ip).create();
-        }
+        // if (TestConfiguration.integrationPlatformName() == null) {   
+        //     OpenshiftClient.get().resources(IntegrationPlatform.class).delete();
+        //     OpenshiftClient.get().resources(IntegrationPlatform.class).resource(ip).create();
+        // }
         
         if (TestConfiguration.streamLogs()) {
             setupLogger();
