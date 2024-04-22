@@ -56,6 +56,7 @@ public class OpenshiftTelegramBotAPI extends TelegramBotApi implements Openshift
         WaitUtils.waitFor(() -> servicePod() == null, "Waiting until the pod is removed");
         LOG.debug("Deleting image stream");
         OpenshiftClient.get().imageStreams().withLabel(OpenshiftConfiguration.openshiftDeploymentLabel(), name()).delete();
+
     }
 
     @Override
